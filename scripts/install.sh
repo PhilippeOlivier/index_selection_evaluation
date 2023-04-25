@@ -18,8 +18,6 @@ if [[ $(reados) == 'debian' ]]; then
     pg_ctlcluster 12 main start
 	service postgresql restart
 	sudo -u postgres createuser -s root
-    #sudo -u postgres createuser -s $(whoami);
-    #eval "sudo -u postgres psql -c 'alter user \"$(whoami)\" with superuser;'"
 
     # https://github.com/ankane/dexter/blob/master/guides/Linux.md
     wget -qO- https://dl.packager.io/srv/pghero/dexter/key | sudo apt-key add -
