@@ -18,11 +18,9 @@ CMD /bin/bash
 
 # Start the container with: docker run -it --rm kossmann
 #
-# After starting the container, enter the following command:
+# After starting the container for the first time, some custom fixes must be applied, then the tests
+# will be executed. Enter the following command:
 #
-# pg_ctlcluster 12 main start; service postgresql restart
+# ./fixes.sh
 #
-# To fix the dsdgen issues, copy the contents of ds-fix to tpcds-kit/tools, then cd to
-# tpcds-kit/tools and run make OS=LINUX
-#
-# Now, everything should work. See: https://dba.stackexchange.com/a/204089
+# Normally, everything should work fine except for 2 remaining NoneType errors that I will fix later
