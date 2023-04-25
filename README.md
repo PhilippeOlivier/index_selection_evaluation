@@ -1,3 +1,68 @@
+# **READ THIS FIRST**
+
+I have adapted the code of the 2020 Kossmann paper to make it work in Docker. It is a bit hacky but it works reliably.
+
+
+## Create the Docker environment
+
+This is done in two steps. First, the image is created, and some fixes are applied through the Dockerfile. Second, the container is created, and some more fixes are manually applied.
+
+Create the image:
+
+```bash
+host$ git clone https://github.com/PhilippeOlivier/index_selection_evaluation
+host$ cd index_selection_evaluation
+host$ docker image build --tag kossmann .
+```
+
+Start the container (you will always be root inside the container):
+
+```bash
+host$ docker run -it --rm kossmann
+```
+
+Apply the additional fixes:
+
+```bash
+docker# cd index_selection_evaluation
+docker# ./fixes.sh
+```
+
+This fixes some errors in the C code for the TPC-DS benchmarks then recompiles. This then runs some unit tests to make sure that everything works fine. Normally, these tests should only output two errors (they don't need to be fixed for now).
+
+When the tests are finished and that the two errors are displayed in the terminal, the environment is properly set up.
+
+
+## Run tests
+
+To run tests, first copy the file `benchmark_results/tpch_wo_2_17_20/config.json` under a different name, e.g.,
+
+```bash
+docker# cp benchmark_results/tpch_wo_2_17_20/config.json benchmark_results/tpch_wo_2_17_20/config-pganalyze.json
+```
+
+Then, edit this file to only use the algorithms that you want (in my case, I only kept `dexter` and `extend`) and set their time limit as you see fit (30s should be enough since they should both terminate quickly anyway).
+
+To run the TPC-H benchmarks, execute:
+
+```bash
+docker# python3 -m selection benchmark_results/tpch_wo_2_17_20/config-pganalyze.json
+```
+
+The results can be found in `benchmark_results/results_ALGORITHM_tpch_queries.csv`.
+
+
+## To do
+
+- [ ] Figure out how to run CoPhy.
+- [ ] Interpret the benchmarks' output.
+- [ ] Why do the TPC-H benchmarks only have ~20 queries?
+- [ ] What is coverage? `coverage run...`
+- [ ] Implement our model here (in `selection/algorithms/pganalyze_algorithm.py`).
+
+
+## Below this line is the rest of the original README
+
 # Index Selection Evaluation
 
 This repository contains the source code for the evaluation platform presented in the paper [*Magic mirror in my hand, which is the best in the land? An Experimental Evaluation of Index Selection Algorithms*](http://www.vldb.org/pvldb/vol13/p2382-kossmann.pdf). As part of this paper, we re-implemented 8 index selection algorithms ([references](#references) listed below):
