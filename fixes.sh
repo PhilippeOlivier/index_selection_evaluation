@@ -3,8 +3,6 @@
 pg_ctlcluster 12 main start
 service postgresql restart
 
-cd index_selection_evaluation
-
 # Fix the dsdgen errors
 cp ds-fix/* tpcds-kit/tools
 cd tpcds-kit/tools

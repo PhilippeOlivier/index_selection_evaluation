@@ -19,7 +19,7 @@ CMD /bin/bash
 # Start the container with: docker run -it --rm kossmann
 #
 # After starting the container for the first time, some custom fixes must be applied, then the tests
-# will be executed. Enter the following command:
+# will be executed. `cd` to index_selection_evaluation, then enter the following command:
 #
 # ./fixes.sh
 #
