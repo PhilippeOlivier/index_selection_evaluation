@@ -13,6 +13,7 @@ from selection.algorithms.dexter_algorithm import DexterAlgorithm
 from selection.algorithms.drop_heuristic_algorithm import DropHeuristicAlgorithm
 from selection.algorithms.extend_algorithm import ExtendAlgorithm
 from selection.algorithms.relaxation_algorithm import RelaxationAlgorithm
+from selection.algorithms.pganalyze_algorithm import PganalyzeAlgorithm
 from selection.benchmark import Benchmark
 from selection.dbms.hana_dbms import HanaDatabaseConnector
 from selection.dbms.postgres_dbms import PostgresDatabaseConnector
@@ -32,6 +33,7 @@ ALGORITHMS = {
     "relaxation": RelaxationAlgorithm,
     "no_index": NoIndexAlgorithm,
     "all_indexes": AllIndexesAlgorithm,
+    "pganalyze": PganalyzeAlgorithm
 }
 
 DBMSYSTEMS = {"postgres": PostgresDatabaseConnector, "hana": HanaDatabaseConnector}

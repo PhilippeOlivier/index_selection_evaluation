@@ -7,7 +7,7 @@ WORKDIR /home/root
 
 RUN apt -y update
 RUN apt -y upgrade
-RUN apt -y install git python3-pip sudo wget lsb-release systemctl emacs
+RUN apt -y install git python3-pip sudo wget lsb-release systemctl emacs curl
 
 RUN git clone https://github.com/PhilippeOlivier/index_selection_evaluation
 RUN cd index_selection_evaluation; ./scripts/install.sh
