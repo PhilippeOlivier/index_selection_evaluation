@@ -1,4 +1,5 @@
-from debian
+#from debian
+FROM python:3.7
 
 # In the main directory, create the image with: docker image build --tag kossmann .
 
@@ -27,7 +28,7 @@ RUN sudo pip3 install ortools
 ARG COSDIR=/opt/CPLEX
 
 # Default Python version is 3.7  TEMP: try with 3.9
-ARG CPX_PYVERSION=3.9
+ARG CPX_PYVERSION=3.7
 
 # Remove stuff that is typically not needed in a container, such as IDE,
 # documentation, examples. Override with --build-arg CPX_KEEP_XXX=TRUE.

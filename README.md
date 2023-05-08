@@ -3,6 +3,11 @@
 I have adapted the code of the 2020 Kossmann paper to make it work in Docker. It is a bit hacky but it works reliably.
 
 
+## Before creating the Docker environment
+
+If you do not have a CPLEX license and the CPLEX installer, uncomment the CPLEX code in the Dockerfile.
+
+
 ## Create the Docker environment
 
 This is done in two steps. First, the image is created, and some fixes are applied through the Dockerfile. Second, the container is created, and some more fixes are manually applied.
