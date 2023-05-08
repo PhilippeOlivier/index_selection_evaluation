@@ -3,6 +3,9 @@
 pg_ctlcluster 12 main start
 service postgresql restart
 
+# Downgrade numpy to fix a CPLEX Python wrapper (DOcplex) error
+pip3 install --force-reinstall -v "numpy==1.20"
+
 # Fix the dsdgen errors
 cp ds-fix/* tpcds-kit/tools
 cd tpcds-kit/tools
