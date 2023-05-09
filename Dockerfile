@@ -3,21 +3,6 @@ FROM python:3.7
 
 # In the main directory, create the image with: docker image build --tag kossmann .
 
-USER root
-WORKDIR /home/root
-
-RUN apt -y update
-RUN apt -y upgrade
-RUN apt -y install git python3-pip sudo wget lsb-release systemctl emacs curl
-
-RUN git clone https://github.com/PhilippeOlivier/index_selection_evaluation
-RUN cd index_selection_evaluation; ./scripts/install.sh
-
-RUN sudo systemctl enable postgresql
-
-# Install OR-Tools
-RUN sudo pip3 install ortools
-
 ################ CPLEX START #######################################################################
 # Uncomment until CPLEX END to install CPLEX.                                                      #
 # The CPLEX installer `cplex.bin` must be located inside this directory.                           #
@@ -27,7 +12,7 @@ RUN sudo pip3 install ortools
 # Where to install (this is also specified in install.properties)
 ARG COSDIR=/opt/CPLEX
 
-# Default Python version is 3.7  TEMP: try with 3.9
+# Default Python version is 3.7
 ARG CPX_PYVERSION=3.7
 
 # Remove stuff that is typically not needed in a container, such as IDE,
@@ -68,12 +53,37 @@ ENV LD_LIBRARY_PATH ${LD_LIBRARY_PATH}:${COSDIR}/opl/bin/x86-64_linux
 # Setup Python
 ENV PYTHONPATH ${PYTHONPATH}:${COSDIR}/cplex/python/${CPX_PYVERSION}/x86-64_linux
 
-RUN cd ${COSDIR}/python && \
-	python${CPX_PYVERSION} setup.py install
+# RUN cd ${COSDIR}/python && \
+# 	python${CPX_PYVERSION} setup.py install
+
+RUN cd ${COSDIR}/cplex/python/3.7/x86-64_linux && python${CPX_PYVERSION} setup.py install
 
 ENV CPX_PYVERSION ${CPX_PYVERSION}
 
+RUN apt -y install python3-pip
+RUN pip install docplex
+
+# cd /opt/CPLEX/cplex/python/3.7/x86-64_linux && python3.7 setup.py install
+
 ################ CPLEX END #########################################################################
+
+# USER root
+# WORKDIR /home/root
+
+# RUN apt -y update
+# RUN apt -y upgrade
+# RUN apt -y install git python3-pip sudo wget lsb-release systemctl emacs curl
+
+# RUN git clone https://github.com/PhilippeOlivier/index_selection_evaluation
+# RUN cd index_selection_evaluation; ./scripts/install.sh
+
+# RUN sudo systemctl enable postgresql
+
+# # Install OR-Tools and DOcplex
+# RUN pip3 install ortools docplex
+
+# RUN cd ${COSDIR}/cplex/python/3.7/x86-64_linux && \
+# 	python${CPX_PYVERSION} setup.py install
 
 CMD /bin/bash
 
