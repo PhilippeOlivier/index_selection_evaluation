@@ -60,8 +60,8 @@ RUN cd ${COSDIR}/cplex/python/3.7/x86-64_linux && python${CPX_PYVERSION} setup.p
 
 ENV CPX_PYVERSION ${CPX_PYVERSION}
 
-RUN apt -y install python3-pip
-RUN pip install docplex
+# RUN apt -y install python3-pip
+# RUN pip install docplex
 
 # cd /opt/CPLEX/cplex/python/3.7/x86-64_linux && python3.7 setup.py install
 
@@ -70,20 +70,17 @@ RUN pip install docplex
 # USER root
 # WORKDIR /home/root
 
-# RUN apt -y update
-# RUN apt -y upgrade
-# RUN apt -y install git python3-pip sudo wget lsb-release systemctl emacs curl
+RUN apt -y update
+RUN apt -y upgrade
+RUN apt -y install git python3-pip wget lsb-release systemctl emacs curl
 
-# RUN git clone https://github.com/PhilippeOlivier/index_selection_evaluation
-# RUN cd index_selection_evaluation; ./scripts/install.sh
+RUN git clone https://github.com/PhilippeOlivier/index_selection_evaluation
+RUN cd index_selection_evaluation && ./scripts/install.sh
 
-# RUN sudo systemctl enable postgresql
+RUN sudo systemctl enable postgresql
 
-# # Install OR-Tools and DOcplex
-# RUN pip3 install ortools docplex
-
-# RUN cd ${COSDIR}/cplex/python/3.7/x86-64_linux && \
-# 	python${CPX_PYVERSION} setup.py install
+# Install OR-Tools and DOcplex
+RUN pip3 install ortools docplex
 
 CMD /bin/bash
 
